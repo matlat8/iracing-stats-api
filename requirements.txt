@@ -3,3 +3,4 @@ clickhouse-connect
 asynch
 pydantic_settings
 uvicorn
+gunicorn
