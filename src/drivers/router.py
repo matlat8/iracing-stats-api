@@ -18,4 +18,4 @@ async def get_all_drivers(ch: ClickhouseConn):
 @drivers.get("/{cust_id}", response_model=schema.DriverInformationResponse)
 async def get_driver_info(cust_id, ch: ClickhouseConn):
     datawh = DataWH(ch)
-    return await service.get_driver_stats(datawh, cust_id)
+    return await service.get_driver_info(datawh, cust_id)
