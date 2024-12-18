@@ -64,36 +64,37 @@ class ClickHouse:
 
 
     @classmethod
-    async def fetchall(cls, query: str) -> list:
+    async def fetchall(cls, query: str, params: dict = {}) -> list:
         """ get many records
 
         Args:
             query (str): sql query
-
+            params (dict, optional): query params. Defaults to None.
         Returns:
             list: record dict
         """
         conn = await cls.conn()
         async with conn.cursor(cursor=DictCursor) as cursor:
-            await cursor.execute(query)
+            await cursor.execute(query, params)
             ret = await cursor.fetchall()
         await conn.close()
         return ret
 
     @classmethod
-    async def fetchone(cls, query: str) -> dict:
+    async def fetchone(cls, query: str, params: dict = {}) -> dict:
         """ get one record
 
         Args:
             query (str): sql query
+            params (dict, optional): query params. Defaults to None.
 
         Returns:
             dict: record
         """
         conn = await cls.conn()
         async with conn.cursor(cursor=DictCursor) as cursor:
-            await cursor.execute(query)
-            ret = cursor.fetchone()
+            await cursor.execute(query, params)
+            ret = await cursor.fetchone()
         await conn.close()
         return ret
 
