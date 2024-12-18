@@ -9,5 +9,6 @@ select cust_id,
        sports_car_rating,
        formula_car_rating
 from iracing.dim_drivers
+FINAL
 WHERE
     cust_id = %(cust_id)s
