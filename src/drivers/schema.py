@@ -23,7 +23,20 @@ class DriverWins(BaseModel):
     sports_car_wins: int
     formula_car_wins: int
         
+        
+class DriverInformation(BaseModel):
+    cust_id: int
+    display_name: str
+    club_name: str
+    country_code: str
+    oval_rating: Optional[int] = None
+    road_rating: Optional[int] = None
+    dirt_oval_rating: Optional[int] = None
+    dirt_road_rating: Optional[int] = None
+    sports_car_rating: Optional[int] = None
+    formula_car_rating: Optional[int] = None
 class DriverInformationResponse(BaseModel):
+    information: DriverInformation
     wins: DriverWins
     
     

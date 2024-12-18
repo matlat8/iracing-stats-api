@@ -16,6 +16,10 @@ class DataWH:
         query = self._read_query('drivers', 'drivers_info.sql')
         return await self.db.fetchall(query)
     
+    async def get_driver_info(self, cust_id: int) -> dict:
+        query = self._read_query('drivers', 'driver_info.sql')
+        return await self.db.fetchone(query, {'cust_id': cust_id})
+    
     async def get_driver_wins(self, cust_id: int) -> dict:
         query = self._read_query('drivers', 'driver_wins.sql')
         return await self.db.fetchone(query, {'cust_id': cust_id})
