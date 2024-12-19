@@ -19,3 +19,8 @@ async def get_all_drivers(ch: ClickhouseConn):
 async def get_driver_info(cust_id, ch: ClickhouseConn):
     datawh = DataWH(ch)
     return await service.get_driver_info(datawh, cust_id)
+
+@drivers.get("/{cust_id}/events")
+async def driver_events(cust_id, ch: ClickhouseConn):
+    datawh = DataWH(ch)
+    return await service.get_driver_events(datawh, cust_id)
