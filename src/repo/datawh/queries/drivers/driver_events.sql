@@ -87,5 +87,5 @@ select session_id,
 from iracing.v_results
 where cust_id = %(cust_id)s
 and event_type = 5
-and simsession_type = 0
+and simsession_type in (0, 6)
 order by end_time desc
