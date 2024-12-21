@@ -25,8 +25,8 @@ class DriverWins(BaseModel):
     
 class DriverRival(BaseModel):
     cust_id: Optional[int] = None
-    name: str
-    times_beaten: int
+    name: Optional[str] = None
+    times_beaten: Optional[int] = None
     club_name: Optional[str] = None
     country_code: Optional[str] = None
     oval_rating: Optional[int] = None
@@ -51,6 +51,6 @@ class DriverInformation(BaseModel):
 class DriverInformationResponse(BaseModel):
     information: DriverInformation
     wins: DriverWins
-    rival: DriverRival
+    rival: Optional[DriverRival] = None
     
     
