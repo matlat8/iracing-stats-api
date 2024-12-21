@@ -27,3 +27,7 @@ class DataWH:
     async def get_driver_events(self, cust_id: int) -> dict:
         query = self._read_query('drivers', 'driver_events.sql')
         return await self.db.fetchall(query, {'cust_id': cust_id})
+    
+    async def get_driver_rival(self, cust_id: int) -> dict:
+        query = self._read_query('drivers', 'driver_rival.sql')
+        return await self.db.fetchone(query, {'cust_id': cust_id})

@@ -22,6 +22,19 @@ class DriverWins(BaseModel):
     dirt_road_wins: int
     sports_car_wins: int
     formula_car_wins: int
+    
+class DriverRival(BaseModel):
+    cust_id: Optional[int] = None
+    name: str
+    times_beaten: int
+    club_name: Optional[str] = None
+    country_code: Optional[str] = None
+    oval_rating: Optional[int] = None
+    road_rating: Optional[int] = None
+    dirt_oval_rating: Optional[int] = None
+    dirt_road_rating: Optional[int] = None
+    sports_car_rating: Optional[int] = None
+    formula_car_rating: Optional[int] = None
         
         
 class DriverInformation(BaseModel):
@@ -38,5 +51,6 @@ class DriverInformation(BaseModel):
 class DriverInformationResponse(BaseModel):
     information: DriverInformation
     wins: DriverWins
+    rival: DriverRival
     
     
