@@ -1,4 +1,5 @@
 from functools import lru_cache
+from typing import Optional
 from pydantic_settings import BaseSettings
 
 class Settings(BaseSettings):
@@ -8,6 +9,11 @@ class Settings(BaseSettings):
     ch_user: str = "default"
     ch_pass: str = "default"
     ch_db: str    
+    redis_host: str = 'localhost'
+    redis_port: int = 6379
+    redis_db: int = 0
+    redis_user: Optional[str] = None
+    redis_pass: Optional[str] = None
 
 @lru_cache()   
 def get_settings():

@@ -4,3 +4,5 @@ asynch
 pydantic_settings
 uvicorn
 gunicorn
+aiocache
+redis
