@@ -1,5 +1,6 @@
 import asyncio
 from src.repo.datawh.data import DataWH
+from src.pagination import Pagination
 
 from . import schema
 
@@ -17,3 +18,6 @@ async def get_driver_info(datawh: DataWH, cust_id: int):
 
 async def get_driver_events(datawh: DataWH, cust_id: int):
     return {'data': await datawh.get_driver_events(cust_id)}
+
+async def search_driver(datawh: DataWH, search_term: str, pagination: Pagination):
+    return {'data': await datawh.search_driver(search_term, pagination)}

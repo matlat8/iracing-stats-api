@@ -13,6 +13,8 @@ class AllDriversDriver(BaseModel):
 class AllDriverResponse(BaseModel):
     drivers: List[AllDriversDriver]
     
+
+    
     
 class DriverWins(BaseModel):
     total_wins: int
@@ -52,5 +54,8 @@ class DriverInformationResponse(BaseModel):
     information: DriverInformation
     wins: DriverWins
     rival: Optional[DriverRival] = None
+    
+class SearchDriverResponse(BaseModel):
+    data: List[DriverInformation]
     
     

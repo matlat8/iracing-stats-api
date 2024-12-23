@@ -1,6 +1,7 @@
 import os
 
 from src.connections.db import ClickHouse
+from src.pagination import Pagination
 
 class DataWH:
     def __init__(self, db: ClickHouse):
@@ -31,3 +32,12 @@ class DataWH:
     async def get_driver_rival(self, cust_id: int) -> dict:
         query = self._read_query('drivers', 'driver_rival.sql')
         return await self.db.fetchone(query, {'cust_id': cust_id})
+    
+    async def search_driver(self, search_term: str, pagination: Pagination) -> dict:
+        query = self._read_query('drivers', 'driver_search.sql')
+        print(f'Limit: {pagination.limit}, Offset: {pagination.offset}')
+        return await self.db.fetchall(query, {
+            'search_term': f'%{search_term}%',
+            'limit': pagination.limit,
+            'offset': pagination.offset
+            })
