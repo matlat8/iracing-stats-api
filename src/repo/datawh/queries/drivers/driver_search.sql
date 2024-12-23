@@ -1,5 +1,5 @@
 SELECT 
-    cust_id,
+    DISTINCT cust_id, --such a bandaid solution
     display_name,
     club_name,
     country_code,
