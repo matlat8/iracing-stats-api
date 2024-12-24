@@ -21,3 +21,8 @@ async def get_driver_events(datawh: DataWH, cust_id: int):
 
 async def search_driver(datawh: DataWH, search_term: str, pagination: Pagination):
     return {'data': await datawh.search_driver(search_term, pagination)}
+
+async def get_driver_winrate(datawh: DataWH, cust_id: int):
+    data = {'all_time': {'categories': await datawh.get_driver_winrate_by_category(cust_id), 'all': await datawh.get_driver_winrate(cust_id)}}
+    print(data)
+    return data

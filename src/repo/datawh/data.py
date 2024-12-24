@@ -41,3 +41,11 @@ class DataWH:
             'limit': pagination.limit,
             'offset': pagination.offset
             })
+        
+    async def get_driver_winrate_by_category(self, cust_id: int) -> dict:
+        query = self._read_query('drivers', 'driver_winrate_by_category.sql')
+        return await self.db.fetchall(query, {'cust_id': cust_id})
+    
+    async def get_driver_winrate(self, cust_id: int) -> dict:
+        query = self._read_query('drivers', 'driver_winrate.sql')
+        return await self.db.fetchone(query, {'cust_id': cust_id})

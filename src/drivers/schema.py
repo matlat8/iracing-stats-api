@@ -59,3 +59,26 @@ class SearchDriverResponse(BaseModel):
     data: List[DriverInformation]
     
     
+class AllTimeDriverWinRateByLicense(BaseModel):
+    license_category: Optional[str] = None
+    total_events: Optional[int] = None
+    wins: Optional[int] = None
+    win_rate: Optional[float] = None
+    top_3: Optional[int] = None
+    top_5: Optional[int] = None
+    avg_finishing_position: Optional[float] = None
+    
+class AllTimeDriverWinRate(BaseModel):
+    total_events: Optional[int] = None
+    wins: Optional[int] = None
+    win_rate: Optional[float] = None
+    top_3: Optional[int] = None
+    top_5: Optional[int] = None
+    avg_finishing_position: Optional[float] = None
+
+class AllTimeDriver(BaseModel):
+    all: Optional[AllTimeDriverWinRate] = None
+    categories: Optional[List[AllTimeDriverWinRateByLicense]] = None
+
+class DriverWinRateResponse(BaseModel):
+    all_time: Optional[AllTimeDriver] = None

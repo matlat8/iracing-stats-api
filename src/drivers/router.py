@@ -4,7 +4,7 @@ from src.connections.db import ClickhouseConn
 from src.repo.datawh.data import DataWH
 from src.pagination import PaginationParams
 
-from . import service, schema
+from . import service, schema, utility
 
 
 drivers = APIRouter(prefix="/drivers", tags=["drivers"])
@@ -29,3 +29,9 @@ async def get_driver_info(cust_id, ch: ClickhouseConn):
 async def driver_events(cust_id, ch: ClickhouseConn):
     datawh = DataWH(ch)
     return await service.get_driver_events(datawh, cust_id)
+
+@drivers.get("/{cust_id}/win-rate", response_class=utility.NanJSONResponse)
+async def driver_win_rate(cust_id, ch: ClickhouseConn):
+    datawh = DataWH(ch)
+    print(utility.NanJSONResponse(content=await service.get_driver_winrate(datawh, cust_id)))
+    return await service.get_driver_winrate(datawh, cust_id)
