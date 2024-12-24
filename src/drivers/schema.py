@@ -17,13 +17,13 @@ class AllDriverResponse(BaseModel):
     
     
 class DriverWins(BaseModel):
-    total_wins: int
-    oval_wins: int
-    road_wins: int
-    dirt_oval_wins: int
-    dirt_road_wins: int
-    sports_car_wins: int
-    formula_car_wins: int
+    total_wins: Optional[int] = None
+    oval_wins: Optional[int] = None
+    road_wins: Optional[int] = None
+    dirt_oval_wins: Optional[int] = None
+    dirt_road_wins: Optional[int] = None
+    sports_car_wins: Optional[int] = None
+    formula_car_wins: Optional[int] = None
     
 class DriverRival(BaseModel):
     cust_id: Optional[int] = None
@@ -51,8 +51,8 @@ class DriverInformation(BaseModel):
     sports_car_rating: Optional[int] = None
     formula_car_rating: Optional[int] = None
 class DriverInformationResponse(BaseModel):
-    information: DriverInformation
-    wins: DriverWins
+    information: Optional[DriverInformation] = None
+    wins: Optional[DriverWins] = None
     rival: Optional[DriverRival] = None
     
 class SearchDriverResponse(BaseModel):
