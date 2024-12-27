@@ -27,4 +27,4 @@ async def get_driver_winrate(datawh: DataWH, cust_id: int):
     return data
 
 async def get_driver_irating(datawh: DataWH, cust_id: int):
-    return await datawh.get_driver_irating(cust_id)
+    return {'data': await datawh.get_driver_irating(cust_id)}
