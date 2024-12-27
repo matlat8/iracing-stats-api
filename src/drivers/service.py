@@ -16,8 +16,8 @@ async def get_driver_info(datawh: DataWH, cust_id: int):
     info, wins, rival = await asyncio.gather(info_task, wins_task, rival_task)
     return schema.DriverInformationResponse(information=info, wins=wins, rival=rival)
 
-async def get_driver_events(datawh: DataWH, cust_id: int):
-    return {'data': await datawh.get_driver_events(cust_id)}
+async def get_driver_events(datawh: DataWH, cust_id: int, pagination: Pagination):
+    return {'data': await datawh.get_driver_events(cust_id, pagination)}
 
 async def search_driver(datawh: DataWH, search_term: str, pagination: Pagination):
     return {'data': await datawh.search_driver(search_term, pagination)}

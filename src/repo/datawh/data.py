@@ -25,9 +25,13 @@ class DataWH:
         query = self._read_query('drivers', 'driver_wins.sql')
         return await self.db.fetchone(query, {'cust_id': cust_id})
     
-    async def get_driver_events(self, cust_id: int) -> dict:
+    async def get_driver_events(self, cust_id: int, pagination: Pagination) -> dict:
         query = self._read_query('drivers', 'driver_events.sql')
-        return await self.db.fetchall(query, {'cust_id': cust_id})
+        return await self.db.fetchall(query, {
+            'cust_id': cust_id,
+            'limit': pagination.limit,
+            'offset': pagination.offset
+            })
     
     async def get_driver_rival(self, cust_id: int) -> dict:
         query = self._read_query('drivers', 'driver_rival.sql')
@@ -35,7 +39,6 @@ class DataWH:
     
     async def search_driver(self, search_term: str, pagination: Pagination) -> dict:
         query = self._read_query('drivers', 'driver_search.sql')
-        print(f'Limit: {pagination.limit}, Offset: {pagination.offset}')
         return await self.db.fetchall(query, {
             'search_term': f'%{search_term}%',
             'limit': pagination.limit,

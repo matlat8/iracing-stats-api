@@ -89,3 +89,5 @@ where cust_id = %(cust_id)s
 and event_type = 5
 and simsession_type in (0, 6)
 order by end_time desc
+LIMIT %(limit)s
+OFFSET %(offset)s
