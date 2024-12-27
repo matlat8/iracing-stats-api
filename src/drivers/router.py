@@ -33,5 +33,9 @@ async def driver_events(cust_id, ch: ClickhouseConn):
 @drivers.get("/{cust_id}/win-rate", response_class=utility.NanJSONResponse)
 async def driver_win_rate(cust_id, ch: ClickhouseConn):
     datawh = DataWH(ch)
-    print(utility.NanJSONResponse(content=await service.get_driver_winrate(datawh, cust_id)))
     return await service.get_driver_winrate(datawh, cust_id)
+
+@drivers.get("/{cust_id}/irating")
+async def driver_irating(cust_id: int, ch: ClickhouseConn):
+    datawh = DataWH(ch)
+    return await service.get_driver_irating(datawh, cust_id)

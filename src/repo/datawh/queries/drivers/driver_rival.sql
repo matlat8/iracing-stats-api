@@ -14,7 +14,7 @@ SELECT
     drivers.country_code as country_code
 FROM iracing.v_results r
 LEFT JOIN
-    iracing.dim_drivers drivers FINAL
+    iracing.dim_drivers drivers
         ON r.winner_name = drivers.display_name
 WHERE
     y <> name

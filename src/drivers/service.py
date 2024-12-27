@@ -24,5 +24,7 @@ async def search_driver(datawh: DataWH, search_term: str, pagination: Pagination
 
 async def get_driver_winrate(datawh: DataWH, cust_id: int):
     data = {'all_time': {'categories': await datawh.get_driver_winrate_by_category(cust_id), 'all': await datawh.get_driver_winrate(cust_id)}}
-    print(data)
     return data
+
+async def get_driver_irating(datawh: DataWH, cust_id: int):
+    return await datawh.get_driver_irating(cust_id)

@@ -88,7 +88,11 @@ class ClickHouse:
         cache_key = f'data:{hash(f"{query}:{params}")}'
         cache = await cache_redis.get(cache_key)
         if cache:
-            return json.loads(cache)
+            cache_data = json.loads(cache)
+            if cache_data:
+                return cache_data
+            else:
+                return None 
         
         conn = await cls.conn()
         async with conn.cursor(cursor=DictCursor) as cursor:
@@ -98,7 +102,10 @@ class ClickHouse:
         
         await cache_redis.set(cache_key, json.dumps(ret, cls=DateTimeEncoder), ttl=1800) # 30 minutes
         
-        return ret
+        if ret:
+            return ret
+        else:
+            return None
 
     @classmethod
     async def fetchone(cls, query: str, params: dict = {}) -> dict:
