@@ -13,6 +13,7 @@ FROM
     iracing.dim_drivers
 WHERE 
     display_name ILIKE %(search_term)s
+AND cust_id != 0
 ORDER BY 
     cust_id
 LIMIT 
