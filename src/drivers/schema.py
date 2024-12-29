@@ -42,8 +42,8 @@ class DriverRival(BaseModel):
 class DriverInformation(BaseModel):
     cust_id: int
     display_name: str
-    club_name: str
-    country_code: str
+    club_name: Optional[str] = None
+    country_code: Optional[str] = None
     oval_rating: Optional[int] = None
     road_rating: Optional[int] = None
     dirt_oval_rating: Optional[int] = None

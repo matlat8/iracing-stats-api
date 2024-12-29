@@ -56,3 +56,9 @@ class DataWH:
     async def get_driver_irating(self, cust_id: int) -> dict:
         query = self._read_query('drivers', 'driver_irating.sql')
         return await self.db.fetchall(query, {'cust_id': cust_id})
+    
+    async def session_info(self, subsession_id: int) -> dict:
+        query = self._read_query('sessions', 'session_info.sql')
+        return await self.db.fetchone(query, {'subsession_id': subsession_id})
+    
+

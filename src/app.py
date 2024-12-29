@@ -2,8 +2,6 @@ from fastapi import FastAPI, Request
 from fastapi.exceptions import ResponseValidationError
 from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
-
-from src.drivers.router import drivers as drivers_router
 from src.connections.db import ClickhouseConn
 
 from version import __version__
@@ -11,7 +9,11 @@ from config import settings
 
 app = FastAPI(app_name=settings.app_name, version=__version__)
 
+
+from src.drivers.router import drivers as drivers_router
+from src.sessions.router import router as sessions_router
 app.include_router(drivers_router)
+app.include_router(sessions_router)
 
 @app.get("/health")
 async def get_health(ch: ClickhouseConn):
