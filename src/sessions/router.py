@@ -7,3 +7,7 @@ router = APIRouter(prefix="/sessions", tags=["sessions"])
 @router.get("/{subsession_id}")
 async def get_session_info(subsession_id: int, datawh: DataRepository):
     return {'data': await datawh.session_info(subsession_id)}
+
+@router.get("/{subsession_id}/results")
+async def get_session_results(subsession_id: int, datawh: DataRepository):
+    return {'data': await datawh.session_results(subsession_id)}

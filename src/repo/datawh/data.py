@@ -61,4 +61,6 @@ class DataWH:
         query = self._read_query('sessions', 'session_info.sql')
         return await self.db.fetchone(query, {'subsession_id': subsession_id})
     
-
+    async def session_results(self, subsession_id: int) -> dict:
+        query = self._read_query('sessions', 'session_race_results.sql')
+        return await self.db.fetchall(query, {'subsession_id': subsession_id})

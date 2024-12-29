@@ -100,9 +100,9 @@ class ClickHouse:
             ret = await cursor.fetchall()
         await conn.close()
         
-        await cache_redis.set(cache_key, json.dumps(ret, cls=DateTimeEncoder), ttl=1800) # 30 minutes
-        
+        # Only cache if there is data
         if ret:
+            await cache_redis.set(cache_key, json.dumps(ret, cls=DateTimeEncoder), ttl=1800) # 30 minutes
             return ret
         else:
             return None
