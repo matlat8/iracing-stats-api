@@ -9,7 +9,7 @@ from . import service, schema, utility
 
 drivers = APIRouter(prefix="/drivers", tags=["drivers"])
 
-@drivers.get("", response_model=schema.AllDriverResponse)
+@drivers.get("") # , response_model=schema.AllDriverResponse
 async def get_all_drivers(ch: ClickhouseConn):
     datawh = DataWH(ch)
     data = await service.get_drivers(datawh)

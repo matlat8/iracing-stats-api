@@ -1,8 +1,8 @@
 select
     cust_id,
     display_name,
-    x.club_name,
-    x.country_code,
+    club_name,
+    country_code,
     count(*) as total_events,
     SUM(IF(simsession_type = 6, 1, 0)) as total_races,
     sum(if(simsession_type = 6 AND finish_position_in_class = 0, 1, 0)) AS total_wins,
@@ -12,10 +12,10 @@ select
     round(avg(finish_position_in_class), 2) + 1 as avg_finish_position_in_class,
     round(avg(starting_position_in_class), 2) + 1 as avg_start_position_in_class
 from iracing.mv_session_results sr
-INNER JOIN (
-    SELECT DISTINCT cust_id, display_name, club_name, country_code from iracing.dim_drivers
-) x
-on sr.cust_id = x.cust_id
+-- INNER JOIN (
+--     SELECT DISTINCT cust_id, display_name, club_name, country_code from iracing.mv_session_results
+-- ) x
+--on sr.cust_id = x.cust_id
 where
     1=1
 and cust_id = %(cust_id)s
