@@ -4,6 +4,8 @@ from src.connections.db import ClickhouseConn
 from src.repo.datawh.data import DataWH
 from src.pagination import PaginationParams
 
+from src.repo.datawh.injection import DataRepository
+
 from . import service, schema, utility
 
 
@@ -34,6 +36,12 @@ async def driver_events(cust_id, pagination: PaginationParams, ch: ClickhouseCon
 async def driver_win_rate(cust_id, ch: ClickhouseConn):
     datawh = DataWH(ch)
     return await service.get_driver_winrate(datawh, cust_id)
+
+@drivers.get("/{cust_id}/stats")
+async def driver_stats(cust_id, datawh: DataRepository):
+    return {
+        'seasons_rollup': await datawh.driver_stats_rollup_by_season(cust_id)
+    }
 
 @drivers.get("/{cust_id}/irating")
 async def driver_irating(cust_id: int, ch: ClickhouseConn):

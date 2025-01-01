@@ -57,6 +57,10 @@ class DataWH:
         query = self._read_query('drivers', 'driver_irating.sql')
         return await self.db.fetchall(query, {'cust_id': cust_id})
     
+    async def driver_stats_rollup_by_season(self, cust_id: int) -> dict:
+        query = self._read_query('drivers', 'driver_stats_rollup_by_season.sql')
+        return await self.db.fetchall(query, {'cust_id': cust_id})
+    
     async def session_info(self, subsession_id: int) -> dict:
         query = self._read_query('sessions', 'session_info.sql')
         return await self.db.fetchone(query, {'subsession_id': subsession_id})
