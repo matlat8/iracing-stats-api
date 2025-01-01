@@ -44,12 +44,14 @@ class DriverInformation(BaseModel):
     display_name: str
     club_name: Optional[str] = None
     country_code: Optional[str] = None
-    oval_rating: Optional[int] = None
-    road_rating: Optional[int] = None
-    dirt_oval_rating: Optional[int] = None
-    dirt_road_rating: Optional[int] = None
-    sports_car_rating: Optional[int] = None
-    formula_car_rating: Optional[int] = None
+    total_events: Optional[int] = None
+    total_races: Optional[int] = None
+    total_wins: Optional[int] = None
+    podiums: Optional[int] = None
+    top_5: Optional[int] = None
+    irating_events_avg_laps_completed: Optional[float] = None
+    avg_finish_position_in_class: Optional[float] = None
+    avg_start_position_in_class: Optional[float] = None
 class DriverInformationResponse(BaseModel):
     information: Optional[DriverInformation] = None
     wins: Optional[DriverWins] = None
