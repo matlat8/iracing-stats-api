@@ -68,3 +68,17 @@ class DataWH:
     async def session_results(self, subsession_id: int) -> dict:
         query = self._read_query('sessions', 'session_race_results.sql')
         return await self.db.fetchall(query, {'subsession_id': subsession_id})
+    
+    ###############################
+    # iRating related queries     #
+    ###############################
+    
+    async def irating_filters(self) -> dict:
+        query = self._read_query('irating', 'irating_filters.sql')
+        return await self.db.fetchone(query)
+    
+    async def irating_distribution(self) -> dict:
+        query = self._read_query('irating', 'irating_distribution.sql')
+        return await self.db.fetchall(query)
+    
+    
