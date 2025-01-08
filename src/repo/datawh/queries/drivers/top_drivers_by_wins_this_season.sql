@@ -19,6 +19,7 @@ inner join (
 ) tp -- time period (latest season year and quarter)
 on r.season_year = tp.season_year
 and r.season_quarter = tp.season_quarter
+where simsession_number = 0 and simsession_type = 6
 group by cust_id, display_name
 order by wins desc
 limit %(limit)s

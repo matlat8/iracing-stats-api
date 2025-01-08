@@ -12,6 +12,9 @@ WITH ranked_data AS (
         GROUP BY cust_id
     ) x ON r.cust_id = x.cust_id AND r.start_time = x.mst
     WHERE newi_rating <> -1
+    AND license_category = %(license)s
+    AND season_year = %(year)s
+    AND season_quarter = %(quarter)s
 ),
 grouped_data AS (
     SELECT
