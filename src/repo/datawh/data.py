@@ -1,5 +1,5 @@
 import os
-
+from typing import List
 from src.connections.db import ClickHouse
 from src.pagination import Pagination
 
@@ -60,6 +60,14 @@ class DataWH:
     async def driver_stats_rollup_by_season(self, cust_id: int) -> dict:
         query = self._read_query('drivers', 'driver_stats_rollup_by_season.sql')
         return await self.db.fetchall(query, {'cust_id': cust_id})
+    
+    async def top_drivers_by_wins_this_season(self, limit=10) -> List[dict]:
+        query = self._read_query('drivers', 'top_drivers_by_wins_this_season.sql')
+        return await self.db.fetchall(query, {'limit': limit})
+    
+    ###############################
+    # Session related queries     #
+    ###############################
     
     async def session_info(self, subsession_id: int) -> dict:
         query = self._read_query('sessions', 'session_info.sql')

@@ -21,6 +21,10 @@ async def get_all_drivers(ch: ClickhouseConn):
 async def search_for_drivers(search_term: str, pagination: PaginationParams, ch: ClickhouseConn):
     datawh = DataWH(ch)
     return await service.search_driver(datawh, search_term, pagination)
+
+@drivers.get("/top/wins")
+async def top_driver_by_wins(dwh: DataRepository):
+    return {'data': await dwh.top_drivers_by_wins_this_season(limit=10)}
     
 @drivers.get("/{cust_id}", response_model=schema.DriverInformationResponse)
 async def get_driver_info(cust_id, ch: ClickhouseConn):
