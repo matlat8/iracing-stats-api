@@ -46,6 +46,10 @@ async def driver_stats(cust_id, datawh: DataRepository):
     return {
         'seasons_rollup': await datawh.driver_stats_rollup_by_season(cust_id)
     }
+    
+@drivers.get("/{cust_id}/tracks")
+async def driver_track_stats(cust_id, datawh: DataRepository):
+    return {'data': await datawh.driver_track_stats(cust_id)}
 
 @drivers.get("/{cust_id}/irating")
 async def driver_irating(cust_id: int, ch: ClickhouseConn):

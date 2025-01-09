@@ -61,6 +61,10 @@ class DataWH:
         query = self._read_query('drivers', 'driver_stats_rollup_by_season.sql')
         return await self.db.fetchall(query, {'cust_id': cust_id})
     
+    async def driver_track_stats(self, cust_id: int) -> dict:
+        query = self._read_query('drivers', 'driver_track_statistics.sql')
+        return await self.db.fetchall(query, {'cust_id': cust_id})
+    
     async def top_drivers_by_wins_this_season(self, limit=10) -> List[dict]:
         query = self._read_query('drivers', 'top_drivers_by_wins_this_season.sql')
         return await self.db.fetchall(query, {'limit': limit})
