@@ -1,18 +1,9 @@
 WITH ranked_data AS (
-    SELECT
-        cust_id,
-        newi_rating,
-        floor(newi_rating / 50) * 50 as irating_group,
-        count(*) OVER () as total_count,
-        row_number() OVER (ORDER BY newi_rating) as row_num
-    FROM iracing.v_results r
-    INNER JOIN (
-        SELECT cust_id, max(start_time) as mst
-        FROM iracing.v_results
-        GROUP BY cust_id
-    ) x ON r.cust_id = x.cust_id AND r.start_time = x.mst
-    WHERE newi_rating <> -1
-    AND license_category = %(license)s
+    SELECT *
+    FROM 
+        iracing_api.fct_irating_distribution
+    WHERE 
+        license_category = %(license)s
     AND season_year = %(year)s
     AND season_quarter = %(quarter)s
 ),
@@ -31,4 +22,5 @@ SELECT
     count_in_group,
     round(max_row / total_count * 100, 2) as percentile
 FROM grouped_data
+WHERE irating_group <= 10000
 ORDER BY irating_group;

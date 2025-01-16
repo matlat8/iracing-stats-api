@@ -87,11 +87,19 @@ class DataWH:
     
     async def irating_filters(self) -> dict:
         query = self._read_query('irating', 'irating_filters.sql')
-        return await self.db.fetchone(query)
+        return await self.db.fetchall(query)
     
     async def irating_distribution(self, license: str = 'Sports Car', year: int = 2025, quarter: int = 1) -> List[dict]:
         query = self._read_query('irating', 'irating_distribution.sql')
         return await self.db.fetchall(query, {
+            'license': license,
+            'year': year,
+            'quarter': quarter
+        })
+        
+    async def irating_distribution_kpis(self, license: str = 'Sports Car', year: int = 2025, quarter: int = 1) -> List[dict]:
+        query = self._read_query('irating', 'irating_distribution_kpis.sql')
+        return await self.db.fetchone(query, {
             'license': license,
             'year': year,
             'quarter': quarter
