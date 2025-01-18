@@ -17,6 +17,10 @@ app.include_router(drivers_router)
 app.include_router(sessions_router)
 app.include_router(irating_router)
 
+from src.log_config import TraceIDMiddleware
+
+app.add_middleware(TraceIDMiddleware)
+
 @app.get("/health")
 async def get_health(ch: ClickhouseConn):
     return {"status": "ok", "version": __version__, "db": await ch.check_connection_to_click_house()}

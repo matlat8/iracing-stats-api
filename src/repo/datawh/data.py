@@ -105,4 +105,11 @@ class DataWH:
             'quarter': quarter
         })
     
+    ###############################
+    # Series related queries      #
+    ###############################
+    
+    async def series_this_week_by_participation(self):
+        query = self._read_query('series', 'series_by_participation_this_week.sql')
+        return await self.db.fetchall(query)
     

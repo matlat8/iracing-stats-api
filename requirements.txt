@@ -6,3 +6,5 @@ uvicorn
 gunicorn
 aiocache
 redis
+loguru
+logtail-python

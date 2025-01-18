@@ -14,6 +14,9 @@ class Settings(BaseSettings):
     redis_db: int = 0
     redis_user: Optional[str] = None
     redis_pass: Optional[str] = None
+    logtail_source_token: str
+    log_level: str = "info"
+    environment: str = "production"
 
 @lru_cache()   
 def get_settings():
