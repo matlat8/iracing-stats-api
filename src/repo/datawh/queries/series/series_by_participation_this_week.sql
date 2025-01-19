@@ -1,6 +1,7 @@
 select
     series_id,
     series_name,
+    series_short_name,
     license_category,
     race_week_num,
     --max(race_week_num) as race_week_numm,

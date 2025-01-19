@@ -113,3 +113,11 @@ class DataWH:
         query = self._read_query('series', 'series_by_participation_this_week.sql')
         return await self.db.fetchall(query)
     
+
+    async def lookup_series_seasons_by_id(self, series_id: int) -> List[dict]:
+        query = self._read_query('series', 'lookup_series_seasons_by_id.sql')
+        return await self.db.fetchall(query, {'series_id': series_id})
+    
+    async def series_latest_season_participation(self, series_id: int) -> List[dict]:
+        query = self._read_query('series', 'series_latest_season_participation.sql')
+        return await self.db.fetchall(query, {'series_id': series_id})
