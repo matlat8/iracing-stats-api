@@ -8,7 +8,7 @@ import redis.asyncio
 
 from config import settings
 
-redis_client = redis.asyncio.Redis(host=settings.redis_host, port=settings.redis_port, db=settings.redis_db)
+redis_client = redis.asyncio.Redis(host=settings.redis_host, port=settings.redis_port, db=settings.redis_db, password=settings.redis_pass)
 
 class CustomJSONEncoder(json.JSONEncoder):
     def default(self, obj):
@@ -25,7 +25,7 @@ def cachefunc(
     r: redis.asyncio.Redis,
     ttl: int = 3600,
     skip_first_arg: bool = True,
-    skip_kwargs: list = [] # Enable if using within class
+    skip_kwargs: list = None # Enable if using within class
 ) -> Callable:
     """
     A decorator that caches function results in Redis.
