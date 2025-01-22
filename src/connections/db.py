@@ -9,7 +9,6 @@ import aiocache
 
 
 from config import settings
-from src.connections.cache_config import redis_connection as cache_redis
 
 class DateTimeEncoder(json.JSONEncoder):
     def default(self, obj):
@@ -85,27 +84,13 @@ class ClickHouse:
         Returns:
             list: record dict
         """
-        cache_key = f'data:{hash(f"{query}:{params}")}'
-        cache = await cache_redis.get(cache_key)
-        if cache:
-            cache_data = json.loads(cache)
-            if cache_data:
-                return cache_data
-            else:
-                return None 
         
         conn = await cls.conn()
         async with conn.cursor(cursor=DictCursor) as cursor:
             await cursor.execute(query, params)
             ret = await cursor.fetchall()
         await conn.close()
-        
-        # Only cache if there is data
-        if ret:
-            await cache_redis.set(cache_key, json.dumps(ret, cls=DateTimeEncoder), ttl=1800) # 30 minutes
-            return ret
-        else:
-            return None
+        return ret
 
     @classmethod
     async def fetchone(cls, query: str, params: dict = {}) -> dict:
@@ -118,18 +103,12 @@ class ClickHouse:
         Returns:
             dict: record
         """
-        cache_key = f'data:{hash(f"{query}:{params}")}'
-        cache = await cache_redis.get(cache_key)
-        if cache:
-            return json.loads(cache)
         
         conn = await cls.conn()
         async with conn.cursor(cursor=DictCursor) as cursor:
             await cursor.execute(query, params)
             ret = await cursor.fetchone()
         await conn.close()
-        
-        await cache_redis.set(cache_key, json.dumps(ret, cls=DateTimeEncoder), ttl=1800) # 30 minutes
         
         return ret
 

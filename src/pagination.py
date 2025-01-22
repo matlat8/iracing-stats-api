@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 from fastapi import Query, Depends
+from fastapi.encoders import jsonable_encoder
 from typing import Annotated
 
 class Pagination(BaseModel):
@@ -17,5 +18,11 @@ class Pagination(BaseModel):
     @property
     def offset(self) -> int:
         return (self.page - 1) * self.limit
+    
+    def __json__(self):
+        return {
+            'page': self.page,
+            'limit': self.limit
+        }
         
 PaginationParams = Annotated[Pagination, Depends()]
