@@ -46,8 +46,9 @@ def cachefunc(
                 cache_args = args
                 
             # Skip any kwargs that are not needed for cache key
-            for kw in skip_kwargs:
-                kwargs.pop(kw, None)
+            if skip_kwargs:
+                for kw in skip_kwargs:
+                    kwargs.pop(kw, None)
                 
             # Create a unique cache key by combining function name and arguments
             cache_key = f"data:{func.__module__}:{func.__name__}:"
