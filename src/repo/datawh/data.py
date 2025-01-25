@@ -148,6 +148,11 @@ class DataWH:
         return await self.db.fetchall(query, {'series_id': series_id})
     
     @cachefunc(r=redis_client, ttl=3600) # 1 hour
+    async def season_info(self, season_id: int) -> dict:
+        query = self._read_query('seasons', 'season_info.sql')
+        return await self.db.fetchone(query, {'season_id': season_id})
+    
+    @cachefunc(r=redis_client, ttl=3600) # 1 hour
     async def series_seasons_stats(self, series_id: int) -> List[dict]:
         query = self._read_query('series', 'series_seasons_stats.sql')
         return await self.db.fetchall(query, {'series_id': series_id})
@@ -158,6 +163,13 @@ class DataWH:
         return await self.db.fetchall(query, {'series_id': series_id, 'season_id': season_id})
     
     @cachefunc(r=redis_client, ttl=3600) # 1 hour
+    async def season_week_info(self, season_id: int, week_num: int) -> dict:
+        query = self._read_query('seasons', 'week_info.sql')
+        return await self.db.fetchone(query, {'season_id': season_id, 'week_num': week_num})
+    
+    @cachefunc(r=redis_client, ttl=3600) # 1 hour
     async def week_irating_avg(self, season_id: int, week_num: int):
         query = self._read_query('seasons', 'week_irating_avg.sql')
         return await self.db.fetchall(query, {'season_id': season_id, 'race_week': week_num})
+    
+    
