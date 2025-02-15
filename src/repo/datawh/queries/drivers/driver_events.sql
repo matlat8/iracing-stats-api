@@ -84,7 +84,7 @@ select session_id,
        license_change_road,
        watched,
        max_pct_fuel_fill
-from iracing.v_results
+from iracing_api.results
 where cust_id = %(cust_id)s
 and event_type = 5
 and simsession_type in (0, 6)

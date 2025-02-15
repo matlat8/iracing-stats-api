@@ -7,7 +7,7 @@ SELECT
     SUM(IF(finish_position_in_class <= 4, 1, 0))    as top_5,
     avg(finish_position_in_class)                   as avg_finishing_position
 FROM
-    iracing.v_results
+    iracing_api.results
 WHERE
     cust_id = %(cust_id)s
 AND simsession_type = 6

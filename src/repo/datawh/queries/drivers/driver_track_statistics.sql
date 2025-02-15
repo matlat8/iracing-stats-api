@@ -13,7 +13,7 @@ FROM (
         finish_position_in_class + 1 as finish_position_in_class,
         oldi_rating - newi_rating as ir_change,
         old_cpi - new_cpi as cpi_change
-    from iracing.v_results
+    from iracing_api.results
     where cust_id = %(cust_id)s
     AND simsession_number = 0
     AND simsession_type = 6

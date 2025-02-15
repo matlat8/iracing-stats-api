@@ -12,7 +12,7 @@ SELECT
     drivers.formula_car_rating,
     drivers.club_name as club_name,
     drivers.country_code as country_code
-FROM iracing.v_results r
+FROM iracing_api.results r
 LEFT JOIN
     iracing.dim_drivers drivers
         ON r.winner_name = drivers.display_name
