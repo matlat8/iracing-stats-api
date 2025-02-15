@@ -68,6 +68,16 @@ class DataWH:
         return await self.db.fetchall(query, {'cust_id': cust_id})
     
     @cachefunc(r=redis_client, ttl=3600) # 1 hour
+    async def get_driver_positions(self, cust_id: int) -> List[dict]:
+        query = self._read_query('drivers', 'driver_position_by_days.sql')
+        return await self.db.fetchall(query, {'cust_id': cust_id})
+    
+    @cachefunc(r=redis_client, ttl=3600) # 1 hour
+    async def get_driver_positions_by_license(self, cust_id: int) -> List[dict]:
+        query = self._read_query('drivers', 'driver_position_by_license.sql')
+        return await self.db.fetchall(query, {'cust_id': cust_id})
+    
+    @cachefunc(r=redis_client, ttl=3600) # 1 hour
     async def driver_stats_rollup_by_season(self, cust_id: int) -> dict:
         query = self._read_query('drivers', 'driver_stats_rollup_by_season.sql')
         return await self.db.fetchall(query, {'cust_id': cust_id})

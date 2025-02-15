@@ -55,3 +55,13 @@ async def driver_track_stats(cust_id, datawh: DataRepository):
 async def driver_irating(cust_id: int, ch: ClickhouseConn):
     datawh = DataWH(ch)
     return await service.get_driver_irating(datawh, cust_id)
+
+@drivers.get("/{cust_id}/positions")
+async def driver_positions(cust_id: int, dwh: DataRepository):
+    return {
+        'data': {
+            'all_categories': await dwh.get_driver_positions(cust_id), 
+            'categories': await dwh.get_driver_positions_by_license(cust_id)
+            
+        }
+    }
