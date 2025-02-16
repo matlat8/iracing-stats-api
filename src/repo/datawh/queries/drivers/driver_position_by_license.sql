@@ -34,4 +34,4 @@ SELECT
         ROWS BETWEEN 6 PRECEDING AND CURRENT ROW
 ) AS rolling_avg_starting_position
 FROM daily
-ORDER BY start_day DESC, license_category;
+ORDER BY start_day, license_category;

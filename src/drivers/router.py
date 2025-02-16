@@ -1,3 +1,4 @@
+import asyncio
 from fastapi import APIRouter
 
 from src.connections.db import ClickhouseConn
@@ -58,10 +59,17 @@ async def driver_irating(cust_id: int, ch: ClickhouseConn):
 
 @drivers.get("/{cust_id}/positions")
 async def driver_positions(cust_id: int, dwh: DataRepository):
+    all_categories, categories, rollup = await asyncio.gather(
+        dwh.get_driver_positions(cust_id),
+        dwh.get_driver_positions_by_license(cust_id),
+        dwh.get_driver_positions_license_rollup(cust_id)
+    )
+    
     return {
         'data': {
-            'all_categories': await dwh.get_driver_positions(cust_id), 
-            'categories': await dwh.get_driver_positions_by_license(cust_id)
+            'all_categories': all_categories,
+            'categories': categories,
+            'rollup': rollup
             
         }
     }
