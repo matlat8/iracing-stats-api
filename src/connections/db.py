@@ -56,7 +56,7 @@ class ClickHouse:
         )
 
     @classmethod
-    async def execute_sql(cls, query) -> bool:
+    async def execute_sql(cls, query, params: dict = {}) -> bool:
         """execute sql
 
         Args:
@@ -66,7 +66,7 @@ class ClickHouse:
         """
         conn = await cls.conn()
         async with conn.cursor(cursor=DictCursor) as cursor:
-            result = await cursor.execute(query)
+            result = await cursor.execute(query, params)
         await conn.close()
 
         if result:

@@ -110,6 +110,11 @@ class DataWH:
         query = self._read_query('sessions', 'session_race_results.sql')
         return await self.db.fetchall(query, {'subsession_id': subsession_id})
     
+    @cachefunc(r=redis_client, ttl=3600) # 1 hour
+    async def session_results_positions(self, subsession_id: int) -> dict:
+        query = self._read_query('sessions', 'session_race_position_chart.sql')
+        return await self.db.fetchall(query, {'subsession_id': subsession_id})
+    
     ###############################
     # iRating related queries     #
     ###############################
@@ -191,4 +196,11 @@ class DataWH:
         query = self._read_query('seasons', 'week_irating_avg.sql')
         return await self.db.fetchall(query, {'season_id': season_id, 'race_week': week_num})
     
+    async def get_ir_link_request(self, request_id: str) -> dict:
+        query = self._read_query('link', 'link_request_lookup.sql')
+        return await self.db.fetchone(query, {'request_id': request_id})
     
+    async def apply_link_request(self, request_id: str, cust_id: int):
+        query = self._read_query('link', 'link_request_apply.sql')
+        await self.db.execute_sql(query, {'request_id': request_id, 'cust_id': cust_id})
+        return 'woo hoo'

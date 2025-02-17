@@ -84,3 +84,6 @@ class AllTimeDriver(BaseModel):
 
 class DriverWinRateResponse(BaseModel):
     all_time: Optional[AllTimeDriver] = None
+
+class DriverLinkBody(BaseModel):
+    cust_id: int

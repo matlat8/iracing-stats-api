@@ -73,3 +73,11 @@ async def driver_positions(cust_id: int, dwh: DataRepository):
             
         }
     }
+    
+@drivers.get("/link/{request_id}")
+async def driver_link(request_id: str, dwh: DataRepository):
+    return await dwh.get_ir_link_request(request_id)
+
+@drivers.post('/link/{request_id}')
+async def apply_driver_link(request_id: str, data: schema.DriverLinkBody, dwh: DataRepository):
+    return await dwh.apply_link_request(request_id, data.cust_id)
